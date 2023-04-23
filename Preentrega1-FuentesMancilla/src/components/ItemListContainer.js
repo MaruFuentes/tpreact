@@ -1,7 +1,19 @@
-import React from 'react'
+import React from 'react';
 
-export const ItemListContainer = ({props}) => {
+import { Card } from './card/Card';
+import { CardBody } from './card/CardBody';
+import { useParams } from 'react-router-dom';
+
+export const ItemListContainer = () => {
+const {id} = useParams()
+ 
   return (
-   <h1>{props}</h1>
+  <>
+     <h1>Todos nuestros productos</h1>
+     {
+      id?  <CardBody categoria={id}/>:<CardBody />
+     }
+    
+  </>
   )
 }
