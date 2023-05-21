@@ -1,17 +1,22 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { HiOutlineShoppingCart } from 'react-icons/hi';
+import { carritoContext } from '../context/CarritoContext';
+import { Link } from 'react-router-dom';
 
 
 export const CartWidget = () => {
+
+  const {cantidad} = useContext(carritoContext)
+
   return (
     <div className='d-flex'>
-      <a href='#'>
+      <Link to={'/carrito'}>
         <HiOutlineShoppingCart
           size={30}
         />
-      </a>
+      </Link>
       <div className="conteineritems">
-        <span>3</span>
+        <span>{cantidad}</span>
       </div>
     </div>
   )

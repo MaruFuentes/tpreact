@@ -3,6 +3,8 @@ import productData from '../mock/productos.json'
 
 
 
+
+
 export const getAll = ()=>{
     return new Promise((res, rej)=>{
         setTimeout(()=>{

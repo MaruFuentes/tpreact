@@ -7,9 +7,13 @@ import { Personalizado } from './components/personalizados/Personalizado';
 import { Nosotros } from './components/nosotros/Nosotros';
 import { Contacto } from './components/contacto/Contacto';
 import { ItemDetailContainer } from './components/ItemDetailContainer';
+import { CarritoProvider } from './context/CarritoProvider';
+import { Carrito } from './components/carrito/Carrito';
+import { FormCompra } from './components/Compra/formCompra';
 
 function App() {
   return (
+    <CarritoProvider>
     <div className="App">
 
       <BrowserRouter>
@@ -21,10 +25,13 @@ function App() {
           <Route exact path="/contacto" element={<Contacto/>} />
           <Route exact path="/category/:id" element={<ItemListContainer/>} />
           <Route exact path="/item/:id" element={<ItemDetailContainer/>} />
+          <Route exact path="/carrito" element={<Carrito/>} />
+          <Route exact path="/compra" element={<FormCompra/>} />
           
         </Routes>
       </BrowserRouter>
     </div>
+    </CarritoProvider>
   );
 }
 

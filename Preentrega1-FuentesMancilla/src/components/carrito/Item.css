@@ -1,0 +1,20 @@
+.row-detail{
+    height: 50px;
+    width: 100%;
+    border-radius: 5px;
+    border: 1px solid #9c9898;
+    padding: 5px,10px,5px,10px;
+    background-color: #e2e2e2;
+    display: grid;
+    grid-template-columns: repeat(5,1fr);
+    align-items: center;
+}
+
+.imagen-item{
+    height: 40px;
+    width: 40px;
+}
+
+.borrar-item{
+    cursor: pointer;
+}

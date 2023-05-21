@@ -1,8 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { getById } from '../utils/mFecth';
 import { useParams } from 'react-router-dom';
 import { Spinner } from './spinner/Spinner';
-import {AiFillPlusCircle,AiFillMinusCircle} from 'react-icons/ai'
+import { AiFillPlusCircle, AiFillMinusCircle } from 'react-icons/ai'
+import { carritoContext } from '../context/CarritoContext';
+import { getProductById } from '../utils/servicios';
+import { Modal } from './modal/Modal';
+
 
 
 
@@ -11,13 +15,17 @@ export const ItemDetailContainer = () => {
     const { id } = useParams()
     const [producto, setProducto] = useState({});
     const [isloading, setLoading] = useState(true)
+    const [seleccion, setseleccion] = useState(1);
+    const { addElementos } = useContext(carritoContext)
 
     useEffect(() => {
-        getById(id).then(res => {
+        getProductById(id).then(res => {
             setProducto(res)
-        })
-            .finally(() => setLoading(false))
+        }).finally(() => setLoading(false))
+
     }, [])
+
+
 
 
 
@@ -31,51 +39,57 @@ export const ItemDetailContainer = () => {
                     :
                     <div
                         style={{
-                            display:'flex',
-                            justifyContent:'center'
+                            display: 'flex',
+                            justifyContent: 'center'
                         }}
                     >
-                        <div className="card" style={{ width: '20rem',height:'500px', padding:'8px',marginTop:'45px' }}>
-                        <img src={producto.imagen} className="card-img-top" alt="..." />
-                        <div className="card-body">
-                            <h5 className="card-title">{producto.name}</h5>
-                            <p className="card-text">${producto.precio}</p>
-                            <p className="card-text">{producto.descripcion}</p>
-                            <div
-                                style={{
-                                    display:'flex',
-                                    justifyContent:'center',
-                                    alignItems:'center',
-                                    gap:'5px',
-                                    padding:'5px'
-                                }}
-                            >
-                            
-                                <span
+                        <div className="card" style={{ width: '20rem', height: '500px', padding: '8px', marginTop: '45px' }}>
+                            <img src={producto.imagen} className="card-img-top" alt="..." />
+                            <div className="card-body">
+                                <h5 className="card-title">{producto.name}</h5>
+                                <p className="card-text">${producto.precio}</p>
+                                <p className="card-text">{producto.descripcion}</p>
+                                <div
                                     style={{
-                                        cursor:'pointer'
-                                    }}
-                                ><AiFillMinusCircle
-                                    size={22}
-                                    coler
-                                />
-                                </span>
-                                <span>0</span>
-                                <span
-                                    style={{
-                                        cursor:'pointer'
+                                        display: 'flex',
+                                        justifyContent: 'center',
+                                        alignItems: 'center',
+                                        gap: '5px',
+                                        padding: '5px'
                                     }}
                                 >
-                                    <AiFillPlusCircle
-                                        size={22}
-                                    />
-                                </span>
+
+                                    <span
+                                        style={{
+                                            cursor: 'pointer'
+                                        }}
+                                        onClick={() => { seleccion > 0 && setseleccion(seleccion - 1) }}
+                                    ><AiFillMinusCircle
+                                            size={22}
+                                            coler
+
+                                        />
+                                    </span>
+                                    <span style={{ margin: '0,5px,0,5px' }}>{seleccion}</span>
+                                    <span
+                                        style={{
+                                            cursor: 'pointer'
+                                        }}
+                                        onClick={() => { setseleccion(seleccion + 1) }}
+                                    >
+                                        <AiFillPlusCircle
+                                            size={22}
+                                        />
+                                    </span>
+                                </div>
+                                <button onClick={() => { addElementos(seleccion, producto,id) }} className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalitem">Agregar Al carrito</button>
                             </div>
-                            <a href="#" className="btn btn-primary">Agregar Al carrito</a>
                         </div>
                     </div>
-                    </div>
             }
+            <Modal title={"Ya esta en tu carrito"} mensaje={"El articulo seleccionado ya esta en el carrito accede para finalizar tu compra"}/>
+         
+
         </>
 
 
