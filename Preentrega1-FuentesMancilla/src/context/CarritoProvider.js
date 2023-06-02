@@ -9,16 +9,25 @@ export const CarritoProvider = ({children}) => {
     const addElementos=(number, item,id)=>{
         setcantidad(cantidad+number);
         item.id = id;
+        const existe = items.findIndex(x => x.producto.id === id);
         const elemento ={
             producto:item,
             pedido:number
         } 
-        setItems([...items,elemento])
+        if(existe !== -1){
+           const newItems = [...items]
+            newItems[existe].pedido = parseInt( newItems[existe].pedido) + number;
+            setItems(newItems)
+        }else{
+            setItems([...items,elemento]);
+        }
+        
+       
     }
 
     const deleteElemento =(item)=>{
         
-        setItems(items.filter(x=>x.producto.id != item.producto.id))
+        setItems(items.filter(x=>x.producto.id !== item.producto.id))
         setcantidad(cantidad-item.pedido)
     }
 

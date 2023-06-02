@@ -82,7 +82,14 @@ export const ItemDetailContainer = () => {
                                         />
                                     </span>
                                 </div>
-                                <button onClick={() => { addElementos(seleccion, producto,id) }} className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalitem">Agregar Al carrito</button>
+                                <button 
+                                    onClick={() => { addElementos(seleccion, producto,id) }} 
+                                    className="btn btn-primary" 
+                                    data-bs-toggle="modal" 
+                                    data-bs-target="#modalitem"
+                                    disabled={seleccion===0}
+                                    >Agregar Al carrito
+                                    </button>
                             </div>
                         </div>
                     </div>
